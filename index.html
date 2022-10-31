@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+	<head>
+		<!-- import tailwindcss via cdn -->
+		<script src="https://cdn.tailwindcss.com"></script>
+	</head>
+	<body>
+		<div class="container m-20">
+			<!--- Image ilustrator -->
+			<img 
+				src="progress.jpg" 
+				alt="image ilustrator"
+				width="200" 
+				height="200"
+				class="mb-10 rounded"
+			/>
+			
+			<!-- button starting progress -->
+			<button 
+				id="start" 
+				class="py-2 
+					   px-5
+					   rounded 
+					   border-1
+					   border
+					   border-cyan-700 
+					   text-cyan-700 
+					   font-bold
+					   text-sm"
+			>execute</button>
+			
+			<!-- content of progress bar -->
+			<section class="mt-5 flex items-center">
+				<div id="content" class="flex rounded overflow-hidden"></div>
+				<p id="value" class="pl-3 font-bold text-gray-300"></p>
+			</section>
+		</div>
+		<script>
+			const run     = document.getElementById("start")
+			const content = document.getElementById("content")
+			const value   = document.getElementById("value")
+			const icon_off = '<div class="w-2 h-5 bg-gray-200"></div>'
+			const icon_on  = '<div class="w-2 h-5 bg-cyan-600"></div>'
+			
+			function sleep(ms) {
+				return new Promise(resolve => setTimeout(resolve, ms))
+			}
+			
+			bar = []
+			for	(x = 0; x < 101; x++) {
+				bar.push(icon_off)	
+			}
+			
+			async function progressBar() {
+				for (y = 0; y < bar.length; y++) {
+					content.innerHTML = ""
+					value.innerHTML = y + "%"
+					
+					bar[y] = icon_on
+					for (x = 0; x < bar.length; x++) {
+						content.innerHTML += bar[x]
+					}
+				
+					await sleep(y, 1000)
+				}										
+			}
+			
+			run.addEventListener('click', () => progressBar())
+		</script>
+	</body>
+
+</html>
